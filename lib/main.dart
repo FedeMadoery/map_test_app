@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:map_view/map_view.dart';
+import 'map.dart';
+
+var apiKeyGoogle = "AIzaSyCX6o9lxvLQCOuHxuBqZwB6gtwulL6ZxM4";
+var apiKeyMapBox = "pk.eyJ1IjoicHVjaG9vIiwiYSI6ImNqanlvdjQ4ZTAxZngzcXA1Z3RuNzdldWMifQ.tiQLHQVhkrFasOaW759TwQ";
 
 void main() {
-  MapView.setApiKey("<your_api_key>");
   runApp(new MyApp());
 }
-
-var apiKey = "AIzaSyDX7mK74TR9cEFomaSY44Arzz_TRdu2U8Q";
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Mapp Test',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -87,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
   return new Scaffold(
       appBar: new AppBar(
-          title: Center(child: Text('Test Tittle')),
+          title: Center(child: Text('Map Test')),
           bottom: tab,
       ),
       // Drawer is a side menu - Flutter alone add a menu icon in the appBar
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                   accountEmail: const Text('mail.widget@example.com'),
                   currentAccountPicture: const CircleAvatar(
                       backgroundColor: Colors.brown,
-                      child: const Text('AH'),
+                      child: const Text('A'),
                       )
                 ),
                 // Items for the sideMenu
@@ -129,17 +130,47 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               ],
               )
       ),
-      body: new TabBarView(
-          controller: tabController,
+      body: new Stack(
           children: <Widget>[
-            // List of Widget, is like a list of fragment, ech one is a tab
-            new page("hey"),
-            new page('the other one!'),
-            new page('headset is on?')
-          ],
-
+            new TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                // List of Widget, is like a list of fragment, ech one is a tab
+                new MyMap(apiKeyMapBox),
+                new page("page"),
+                new page('headset is on?')
+              ],
+            ),
+          ]
       ),
+
   );
+
+/*
+  new Stack(
+      children: <Widget>[
+        new Column(
+            children: <Widget>[
+              new Container(
+                  height: topWidgetHeight,
+                  color: Colors.yellow,
+                  ),
+              new Container(
+                  color: Colors.red,
+                  )
+            ],
+            ),
+        new Positioned(
+            child: new CircleAvatar(
+                radius: avatarRadius,
+                backgroundColor: Colors.green,
+                ),
+            left: (MediaQuery.of(context).size.width/2) - avatarRadius,
+            top: topWidgetHeight - avatarRadius,
+            )
+      ],
+      ),
+*/
 
   }
 }
